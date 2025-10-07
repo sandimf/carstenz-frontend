@@ -5,13 +5,14 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/proxy/:path*',
-        destination: 'http://localhost:9000/api/v1/:path*', // Laravel
+        destination: 'https://api.ranupani.my.id/api/v1/:path*', 
       },
       {
         source: '/api/python-proxy/:path*',
-        destination: 'http://localhost:8001/api/v1/:path*', // Python
+        destination: 'https://python.ranupani.my.id/api/v1/:path*',
       },
     ];
   },
 };
+
 export default nextConfig;
