@@ -132,6 +132,7 @@ export default function ScreeningDetail({ uuid }: ScreeningDetailProps) {
         </TabsContent>
 
         {/* Questionnaire Tab */}
+        {/* Questionnaire Tab */}
         <TabsContent value="questionnaire" className="space-y-4 mt-6">
           <Card className="bg-white dark:bg-black border-gray-200 dark:border-gray-800">
             <CardHeader>
@@ -144,7 +145,7 @@ export default function ScreeningDetail({ uuid }: ScreeningDetailProps) {
                   className="border-b border-gray-200 dark:border-gray-800 pb-2 last:border-b-0"
                 >
                   <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                    {index + 1}. {qa.question || `Question ${qa.question_id}`}
+                    {index + 1}. {qa.question_text || `Question ${qa.question_id}`}
                   </p>
                   <p className="text-black dark:text-white">{parseAnswer(qa.answer)}</p>
                 </div>
