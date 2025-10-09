@@ -23,14 +23,11 @@ export default function ScreeningsPage() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  const { data, isLoading, error, isFetching, refetch } = useQuery({
-    queryKey: ['screenings', searchQuery],
-    queryFn: () =>
-      apiClient.getScreeningsC({
-        search: searchQuery || undefined,
-      }),
-    placeholderData: (prev) => prev,
-  });
+    const { data, isLoading, error, isFetching, refetch } = useQuery({
+      queryKey: ['screenings', searchQuery],
+      queryFn: () =>
+        apiClient.getScreeningsC(),
+    });
 
   const currentTotal = data?.data?.length || 0;
 

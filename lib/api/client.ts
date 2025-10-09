@@ -203,10 +203,11 @@ class APIClient {
   }
 
 
-  async getScreeningsC(params?: { page?: number; per_page?: number; search?: string }) {
-    const response = await this.client.get('/screening/cartensz/list', { params });
+  async getScreeningsC() {
+    const response = await this.client.get('/screening/cartensz/list');
     return response.data;
   }
+
 
   async updateAnswer(answerId: number, data: { answer: string }) {
     const response = await this.client.put(`/screening/update/answer/${answerId}`, data);
@@ -425,13 +426,13 @@ async createQuestion(data: {
 }
 
 // Tambahkan ini di class APIClient
-async downloadScreeningsCsv(search?: string) {
-  const response = await this.client.get('/screening/cartensz/csv', {
-    params: { search },
-    responseType: 'blob', 
-  });
-  return response.data;
-}
+  async downloadScreeningsCsv(search?: string) {
+    const response = await this.client.get('/screening/cartensz/csv', {
+      params: { search },
+      responseType: 'blob', 
+    });
+    return response.data;
+  }
 
 
   // ================ PHYSICAL EXAMINATION ACTIVITIES ================
