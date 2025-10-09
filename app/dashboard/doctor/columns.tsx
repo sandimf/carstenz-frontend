@@ -24,21 +24,6 @@ export const columns: ColumnDef<Screening>[] = [
   { accessorKey: 'contact', header: 'Contact' },
   { accessorKey: 'passport_number', header: 'Passport Number' },
   {
-    accessorKey: 'screening_status',
-    header: 'Status',
-    cell: ({ getValue }) => {
-      const status = getValue() as 'pending' | 'completed' | 'failed';
-      const statusMap = {
-        pending: { text: 'Pending', className: 'bg-yellow-500 text-white' },
-        completed: { text: 'Completed', className: 'bg-green-500 text-white' },
-        failed: { text: 'Failed', className: 'bg-red-500 text-white' },
-      };
-      const { text, className } = statusMap[status] ?? { text: status, className: '' };
-      return <Badge className={className}>{text}</Badge>;
-    },
-  },
-  { accessorKey: 'queue', header: 'Queue' },
-  {
     accessorKey: 'screening_date',
     header: 'Screening Date',
     cell: ({ getValue }) => new Date(getValue() as string).toLocaleDateString(),
