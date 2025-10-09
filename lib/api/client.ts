@@ -96,15 +96,6 @@ class APIClient {
   }
 
   // ================ NURSE OVERVIEW ================
-  async getNurseOverview() {
-    const response = await this.client.get('/nurse/overview');
-    return response.data;
-  }
-
-  async getNurseWaitingList(params?: { page?: number; per_page?: number }) {
-    const response = await this.client.get('/nurse/waiting-list', { params });
-    return response.data;
-  }
 
   async requestAIAnalysis(data: {
     waitingCount: number;
@@ -433,6 +424,15 @@ async createQuestion(data: {
   return res.data;
 }
 
+// Tambahkan ini di class APIClient
+async downloadScreeningsCsv(search?: string) {
+  const response = await this.client.get('/screening/cartensz/export', {
+    params: { search },
+    responseType: 'blob', // penting supaya browser tahu ini file
+  });
+  return response.data;
+}
+
 
   // ================ PHYSICAL EXAMINATION ACTIVITIES ================
   async getPhysicalExaminationActivities(params?: { page?: number; per_page?: number; patient_id?: number; date?: string }) {
@@ -475,5 +475,7 @@ async createQuestion(data: {
     return response.data;
   }
 }
+
+
 
 export const apiClient = new APIClient();

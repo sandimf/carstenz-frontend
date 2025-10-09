@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,7 +7,7 @@ import { DataTable } from '@/components/data-table';
 import { apiClient } from '@/lib/api/client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, RefreshCw, AlertCircle } from 'lucide-react';
+import { Search, RefreshCw, AlertCircle, Download } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ScreeningsPage() {
@@ -16,6 +15,7 @@ export default function ScreeningsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
   const perPage = 10;
+  const [isDownloading, setIsDownloading] = useState(false);
 
   // debounce search input
   useEffect(() => {
@@ -36,6 +36,30 @@ export default function ScreeningsPage() {
       }),
     placeholderData: (prev) => prev,
   });
+
+  const totalPages = data?.meta?.last_page || 1;
+  const currentTotal = data?.data?.length || 0;
+  const grandTotal = data?.meta?.total || 0;
+
+  const handleDownloadCsv = async () => {
+    try {
+      setIsDownloading(true);
+      const blob = await apiClient.downloadScreeningsCsv(searchQuery);
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `screenings_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download failed', err);
+      alert('Failed to download CSV. Please try again.');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -72,21 +96,25 @@ export default function ScreeningsPage() {
     );
   }
 
-  const totalPages = data?.meta?.last_page || 1;
-  const currentTotal = data?.data?.length || 0;
-  const grandTotal = data?.meta?.total || 0;
-
   return (
     <div className="p-4">
       {/* Header */}
       <div className="mb-8 py-2 flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight">
-            List
-          </h1>
+          <h1 className="text-4xl font-extrabold tracking-tight">List</h1>
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            onClick={handleDownloadCsv}
+            disabled={isDownloading}
+            variant="outline"
+            size="sm"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            {isDownloading ? 'Downloading...' : 'Export CSV'}
+          </Button>
+
           <Button
             onClick={() => refetch()}
             disabled={isFetching}
