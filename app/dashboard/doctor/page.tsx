@@ -13,33 +13,26 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function ScreeningsPage() {
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const perPage = 10;
   const [isDownloading, setIsDownloading] = useState(false);
 
   // debounce search input
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchQuery(searchInput);
-      setPage(1);
     }, 500);
     return () => clearTimeout(timer);
   }, [searchInput]);
 
   const { data, isLoading, error, isFetching, refetch } = useQuery({
-    queryKey: ['screenings', page, searchQuery],
+    queryKey: ['screenings', searchQuery],
     queryFn: () =>
       apiClient.getScreeningsC({
-        page,
-        per_page: perPage,
         search: searchQuery || undefined,
       }),
     placeholderData: (prev) => prev,
   });
 
-  const totalPages = data?.meta?.last_page || 1;
   const currentTotal = data?.data?.length || 0;
-  const grandTotal = data?.meta?.total || 0;
 
   const handleDownloadCsv = async () => {
     try {
@@ -154,37 +147,6 @@ export default function ScreeningsPage() {
           columns={columns}
           data={data?.data || []}
         />
-      )}
-
-      {/* Pagination */}
-      {currentTotal > 0 && (
-        <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-sm text-muted-foreground">
-            Showing {((page - 1) * perPage) + 1} -{' '}
-            {Math.min(page * perPage, grandTotal)} of {grandTotal} results
-            {searchQuery && ` for "${searchQuery}"`}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-              disabled={page === 1 || isFetching}
-              variant="outline"
-              size="sm"
-            >
-              Previous
-            </Button>
-
-            <Button
-              onClick={() => setPage((prev) => prev + 1)}
-              disabled={page >= totalPages || isFetching}
-              variant="outline"
-              size="sm"
-            >
-              Next
-            </Button>
-          </div>
-        </div>
       )}
     </div>
   );

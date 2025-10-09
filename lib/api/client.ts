@@ -426,9 +426,9 @@ async createQuestion(data: {
 
 // Tambahkan ini di class APIClient
 async downloadScreeningsCsv(search?: string) {
-  const response = await this.client.get('/screening/cartensz/export', {
+  const response = await this.client.get('/screening/cartensz/csv', {
     params: { search },
-    responseType: 'blob', // penting supaya browser tahu ini file
+    responseType: 'blob', 
   });
   return response.data;
 }
