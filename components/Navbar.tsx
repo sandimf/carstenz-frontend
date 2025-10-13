@@ -260,7 +260,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                     </div>
                     <div className="flex items-center gap-2">
                         <ThemeToggle />
-                        <Link href="/auth/login">Login</Link>
+                        {/* <Link href="/auth/login">Login</Link> */}
                     </div>
                 </div>
             </header>
