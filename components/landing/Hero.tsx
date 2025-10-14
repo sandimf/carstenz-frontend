@@ -9,7 +9,7 @@ import { landingContent } from "@/data/landing"
 
 
 export function Hero() {
-    const { version, title, subtitle, description, footer } = landingContent.hero
+    const { version, title, description, footer } = landingContent.hero
     const links = landingContent.link 
     const router = useRouter()
     const [loadingLink, setLoadingLink] = useState<number | null>(null)
@@ -55,7 +55,6 @@ export function Hero() {
                         <h1 className="bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white text-transparent mb-3 tracking-tight leading-none dark:from-white dark:to-slate-900/10">
                             {title}
                             <br />
-                            <span className="text-gray-900 dark:text-white">{subtitle}</span>
                         </h1>
 
                         <p className="text-6sm md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed font-normal">

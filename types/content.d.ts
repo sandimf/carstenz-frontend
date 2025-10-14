@@ -1,7 +1,6 @@
 export interface HeroProps {
   version: string;
   title: string;
-  subtitle: string;
   description: string;
   footer: string;
 }

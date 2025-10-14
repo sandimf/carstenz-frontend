@@ -4,7 +4,6 @@ export const landingContent: LandingContent = {
   hero: {
     version: "v0.2.1",
     title: "Klinik Gunung",
-    subtitle: "Semeru",
     description: "Pilih Layanan Kesehatan Yang Tersedia.",
     footer: "© 2025 Klinik Gunung Semeru.",
   },
