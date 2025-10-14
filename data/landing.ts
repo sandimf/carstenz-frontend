@@ -15,7 +15,7 @@ export const landingContent: LandingContent = {
       disabled: false,
     },
     {
-      title: "Screening Kesehatan",
+      title: "Screening Kesehatan Semeru",
       description: "Pemeriksaan kesehatan sebelum mendaki gunung",
       route: "https://screening-pendakian2.ranupani.my.id/screening",
       disabled: false,
