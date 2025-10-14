@@ -69,8 +69,8 @@ export function Hero() {
                                     className={cn(
                                         "min-w-[250px] px-6 py-3 text-base rounded-md font-medium transition-colors flex items-center justify-center",
                                         index === 0
-                                            ? "bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
-                                            : "border border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-700 dark:hover:border-gray-600 dark:hover:bg-gray-900"
+                                            ? ""
+                                            : ""
                                     )}
                                     onClick={() => handleLinkClick(link, index)}
                                     disabled={loadingLink === index}
